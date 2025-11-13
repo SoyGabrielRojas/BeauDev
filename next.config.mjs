@@ -1,11 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export', // 👈 habilita el modo estático
-  images: {
-    unoptimized: true, // 👈 desactiva la optimización (necesario para GH Pages)
-  },
-  basePath: '/BeauDev', // 👈 nombre exacto de tu repositorio
+  output: 'export',
+  basePath: '/BeauDev', // 👈 nombre EXACTO del repo
   assetPrefix: '/BeauDev/',
+  images: {
+    unoptimized: true,
+  },
+  trailingSlash: true, // 👈 evita errores de rutas en GitHub Pages
 };
 
 export default nextConfig;
