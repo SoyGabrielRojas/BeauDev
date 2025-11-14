@@ -134,17 +134,17 @@ export default function Home() {
 
   const team = [
     {
-      name: "Miembro del equipo 1",
+      name: "Gagabi",
       role: "Full Stack Developer",
       expertise: "React, Node.js, AI Integration",
     },
     {
-      name: "Miembro del equipo 2",
+      name: "German Estorbar",
       role: "UX/UI Designer",
       expertise: "Figma, Branding, User Research",
     },
     {
-      name: "Miembro del equipo 3",
+      name: "Lihuen",
       role: "Backend Specialist",
       expertise: "Python, Flask, Computer Vision",
     },
