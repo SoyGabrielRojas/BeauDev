@@ -1,12 +1,16 @@
 /** @type {import('next').NextConfig} */
+
+const isProd = process.env.NODE_ENV === "production";
+
 const nextConfig = {
-  output: 'export',
-  basePath: '/BeauDev', // 👈 nombre EXACTO del repo
-  assetPrefix: '/BeauDev/',
+  output: "export",             
+  distDir: "docs",              
+  basePath: isProd ? "/BeauDev" : "",
+  assetPrefix: isProd ? "/BeauDev/" : "",
   images: {
     unoptimized: true,
   },
-  trailingSlash: true, // 👈 evita errores de rutas en GitHub Pages
+  trailingSlash: true,          
 };
 
 export default nextConfig;
