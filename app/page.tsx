@@ -137,16 +137,19 @@ export default function Home() {
       name: "Gagabi",
       role: "Full Stack Developer",
       expertise: "React, Node.js, AI Integration",
+      image: "/images/team/gagabi.jpg", // Ruta en public
     },
     {
       name: "German Estorbar",
       role: "UX/UI Designer",
       expertise: "Figma, Branding, User Research",
+      image: "/images/team/german.jpg", // Ruta en public
     },
     {
       name: "Lihuen",
       role: "Backend Specialist",
       expertise: "Python, Flask, Computer Vision",
+      image: "/images/team/lihuen.jpg", // Ruta en public
     },
   ]
 
@@ -476,13 +479,27 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: index * 0.15 }}
               >
                 <Card className="bg-beaudev-dark border-2 border-beaudev-gold/20 hover:border-beaudev-gold transition-all duration-300 overflow-hidden group">
-                  {/* Placeholder for future photo */}
-                  <div className="relative w-full h-80 bg-gradient-to-br from-beaudev-gold/10 to-beaudev-gold/5 border-b-2 border-beaudev-gold/20 flex items-center justify-center">
-                    <div className="text-center p-8">
-                      <Users className="w-24 h-24 text-beaudev-gold/30 mx-auto mb-4" />
-                      <p className="text-beaudev-gold/50 text-sm font-medium">Foto próximamente</p>
+                  {member.name === "Gagabi" ? (
+                    // Imagen real para Gagabi
+                    <div className="relative w-full h-80 border-b-2 border-beaudev-gold/20 overflow-hidden">
+                      <Image
+                        src={withBasePath("/images/team/gagabi.jpeg")}
+                        alt={`Foto de ${member.name} - ${member.role}`}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-beaudev-dark/20 to-transparent" />
                     </div>
-                  </div>
+                  ) : (
+                    // Placeholder para los demás
+                    <div className="relative w-full h-80 bg-gradient-to-br from-beaudev-gold/10 to-beaudev-gold/5 border-b-2 border-beaudev-gold/20 flex items-center justify-center">
+                      <div className="text-center p-8">
+                        <Users className="w-24 h-24 text-beaudev-gold/30 mx-auto mb-4" />
+                        <p className="text-beaudev-gold/50 text-sm font-medium">Foto próximamente</p>
+                      </div>
+                    </div>
+                  )}
 
                   <div className="p-8">
                     <h3 className="font-serif text-2xl font-bold text-beaudev-gold-soft mb-2">{member.name}</h3>
@@ -612,13 +629,12 @@ export default function Home() {
                       Cuéntanos sobre tu proyecto
                     </label>
                     <span
-                      className={`text-sm font-medium transition-colors ${
-                        charCount > maxChars * 0.9
-                          ? "text-beaudev-gold"
-                          : charCount > maxChars * 0.7
-                            ? "text-beaudev-text-light/70"
-                            : "text-beaudev-text-light/50"
-                      }`}
+                      className={`text-sm font-medium transition-colors ${charCount > maxChars * 0.9
+                        ? "text-beaudev-gold"
+                        : charCount > maxChars * 0.7
+                          ? "text-beaudev-text-light/70"
+                          : "text-beaudev-text-light/50"
+                        }`}
                     >
                       {charCount}/{maxChars}
                     </span>
