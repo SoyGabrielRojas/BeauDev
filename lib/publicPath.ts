@@ -1,4 +1,4 @@
 export const withBasePath = (path: string) => {
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
-  return `${basePath}${path}`;
+  const base = process.env.NODE_ENV === "production" ? "/BeauDev" : "";
+  return `${base}${path}`;
 };
