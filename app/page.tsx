@@ -1,10 +1,13 @@
-"use client"
+"use client";
 
-import type React from "react"
+import React, { useState } from "react";
+import Image from "next/image";
 
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
+import { motion } from "framer-motion";
+
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+
 import {
   Sparkles,
   Code2,
@@ -20,16 +23,16 @@ import {
   Star,
   CheckCircle,
   AlertCircle,
-} from "lucide-react"
-import { motion } from "framer-motion"
-import { useState } from "react"
+} from "lucide-react";
+
+import { withBasePath } from "@/lib/publicPath";
 
 export default function Home() {
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" })
-  const [charCount, setCharCount] = useState(0)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
-  const maxChars = 1000
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [charCount, setCharCount] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const maxChars = 1000;
 
   const services = [
     {
@@ -192,7 +195,7 @@ export default function Home() {
         <div className="absolute inset-0 flex items-center justify-center opacity-10">
           <div className="relative w-[600px] h-[600px] md:w-[800px] md:h-[800px] lg:w-[1000px] lg:h-[1000px]">
             <Image
-              src="/images/design-mode/logo.png"
+              src={withBasePath("/images/design-mode/logo.png")}
               alt="BeauDev - Logo con rostro minimalista en líneas doradas sobre fondo negro"
               fill
               className="object-contain"
@@ -363,7 +366,7 @@ export default function Home() {
                       {/* Larger logo with better contrast background */}
                       <div className="relative w-full max-w-3xl h-96 mb-8 flex items-center justify-center">
                         <Image
-                          src={project.logo || "/placeholder.svg"}
+                          src={project.logo || withBasePath("/placeholder.svg")}
                           alt={project.logoAlt}
                           fill
                           className="object-contain"

@@ -5,9 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "export": "next build && cp -r .next/static out/_next/static && cp -r public/* out/ 2>/dev/null || true",
-    "predeploy": "npm run export",
-    "deploy": "gh-pages -d out"
+    "deploy": "npm run build && npm run export && touch docs/.nojekyll"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "latest",
