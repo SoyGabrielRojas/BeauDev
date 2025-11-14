@@ -7,12 +7,10 @@ const nextConfig = {
   distDir: "docs",
   images: { unoptimized: true },
   trailingSlash: true,
-  ...(isProd
-    ? {
-        basePath: "/BeauDev",
-        assetPrefix: "/BeauDev/",
-      }
-    : {}),
+
+  // 👉 ESTO ES LO QUE TE ESTÁ FALTANDO
+  basePath: isProd ? "/BeauDev" : "",
+  assetPrefix: isProd ? "/BeauDev/" : "",
 };
 
 export default nextConfig;
