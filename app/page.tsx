@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
 import { motion } from "framer-motion";
@@ -137,19 +137,24 @@ export default function Home() {
       name: "Gagabi",
       role: "Full Stack Developer",
       expertise: "React, Node.js, AI Integration",
-      image: "/images/team/gagabi.jpg", // Ruta en public
+      image: "/images/team/gagabi.jpeg",
     },
     {
       name: "German Estorbar",
       role: "UX/UI Designer",
       expertise: "Figma, Branding, User Research",
-      image: "/images/team/german.jpg", // Ruta en public
+      images: [ // Array de múltiples imágenes
+        "/images/team/german1.jpeg",
+        "/images/team/german2.jpeg",
+        "/images/team/german3.jpeg",
+        "/images/team/german4.jpeg",
+      ],
     },
     {
       name: "Lihuen",
       role: "Backend Specialist",
       expertise: "Python, Flask, Computer Vision",
-      image: "/images/team/lihuen.jpg", // Ruta en public
+      image: "/images/team/lihuen.jpg",
     },
   ]
 
@@ -195,6 +200,70 @@ export default function Home() {
       setCharCount(text.length)
     }
   }
+
+  // Componente de carrusel mejorado con ajuste dinámico de imágenes
+  const TeamMemberCarousel = ({ images, name, role }: { images: string[], name: string, role: string }) => {
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [imageLoading, setImageLoading] = useState(true);
+
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setCurrentImageIndex((prevIndex) =>
+          prevIndex === images.length - 1 ? 0 : prevIndex + 1
+        );
+      }, 3000);
+
+      return () => clearInterval(interval);
+    }, [images.length]);
+
+    return (
+      <div className="relative w-full h-full bg-beaudev-dark">
+        {images.map((image, index) => (
+          <div
+            key={image}
+            className={`absolute inset-0 transition-opacity duration-1000 flex items-center justify-center ${index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+              }`}
+          >
+            <Image
+              src={withBasePath(image)}
+              alt={`Foto de ${name} - ${role} ${index + 1}`}
+              width={400} // Tamaño base
+              height={500} // Tamaño base
+              className={`max-w-full max-h-full object-scale-down transition-all duration-500 ${imageLoading ? 'opacity-0' : 'opacity-100'
+                }`}
+              onLoad={() => setImageLoading(false)}
+              priority={index === 0} // Prioriza la primera imagen
+            />
+
+            {/* Spinner de carga */}
+            {imageLoading && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-8 h-8 border-2 border-beaudev-gold/30 border-t-beaudev-gold rounded-full animate-spin"></div>
+              </div>
+            )}
+          </div>
+        ))}
+
+        {/* Indicadores del carrusel */}
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentImageIndex
+                ? 'bg-beaudev-gold scale-125'
+                : 'bg-beaudev-gold/40'
+                }`}
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentImageIndex(index);
+                setImageLoading(true); // Reinicia el estado de carga al cambiar manualmente
+              }}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <main className="min-h-screen bg-beaudev-dark">
@@ -485,27 +554,30 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: index * 0.15 }}
               >
                 <Card className="bg-beaudev-dark border-2 border-beaudev-gold/20 hover:border-beaudev-gold transition-all duration-300 overflow-hidden group">
-                  {member.name === "Gagabi" ? (
-                    // Imagen real para Gagabi
-                    <div className="relative w-full h-80 border-b-2 border-beaudev-gold/20 overflow-hidden">
-                      <Image
-                        src={withBasePath("/images/team/gagabi.jpeg")}
-                        alt={`Foto de ${member.name} - ${member.role}`}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-beaudev-dark/20 to-transparent" />
-                    </div>
-                  ) : (
-                    // Placeholder para los demás
-                    <div className="relative w-full h-80 bg-gradient-to-br from-beaudev-gold/10 to-beaudev-gold/5 border-b-2 border-beaudev-gold/20 flex items-center justify-center">
+                  {/* Contenedor de imagen mejorado */}
+                  <div className="relative w-full h-80 border-b-2 border-beaudev-gold/20 overflow-hidden flex items-center justify-center bg-beaudev-dark">
+                    {member.name === "German Estorbar" && member.images ? (
+                      <TeamMemberCarousel images={member.images} name={member.name} role={member.role} />
+                    ) : member.image ? (
+                      // Imagen estática para otros miembros con el mismo ajuste
+                      <div className="relative w-full h-full flex items-center justify-center">
+                        <Image
+                          src={withBasePath(member.image)}
+                          alt={`Foto de ${member.name} - ${member.role}`}
+                          width={400}
+                          height={500}
+                          className="max-w-full max-h-full object-scale-down"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                        />
+                      </div>
+                    ) : (
+                      // Placeholder para miembros sin imagen
                       <div className="text-center p-8">
                         <Users className="w-24 h-24 text-beaudev-gold/30 mx-auto mb-4" />
                         <p className="text-beaudev-gold/50 text-sm font-medium">Foto próximamente</p>
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
 
                   <div className="p-8">
                     <h3 className="font-serif text-2xl font-bold text-beaudev-gold-soft mb-2">{member.name}</h3>
