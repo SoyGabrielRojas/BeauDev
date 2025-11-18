@@ -70,21 +70,6 @@ export default function Home() {
 
   const portfolio = [
     {
-      title: "OptiScan",
-      category: "IA & Visión Computacional",
-      description: "Sistema inteligente de análisis geométrico facial y recomendación de gafas personalizadas.",
-      technologies: ["React", "Python", "Flask", "MediaPipe", "OpenCV"],
-      highlights: [
-        "Captura facial en tiempo real",
-        "Análisis geométrico preciso",
-        "Recomendación personalizada",
-        "Procesamiento local y privado",
-      ],
-      logo: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/optiscan%20logo-ljdcHpFsxq4a0rZ3pLEw1o9k1MWMrs.jpeg",
-      logoAlt: "OptiScan - Logo con icono de escaneo ocular en degradado azul y púrpura",
-      link: null,
-    },
-    {
       title: "AbogadosCJF",
       category: "Desarrollo Web & UX",
       description: "Plataforma web integral para estudio jurídico con diseño profesional y formularios seguros.",
@@ -98,6 +83,21 @@ export default function Home() {
       logo: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/tarjeta%20Cristian%20curva%20%281%29-kJqcGD3hnEzcUy1XRermWnwDzHIL34.png",
       logoAlt: "Abogados CJF - Logo institucional con letras CJF entrelazadas en oro y corona de laureles",
       link: "https://abogadoscjf.com.ar",
+    },
+    {
+      title: "OptiScan",
+      category: "IA & Visión Computacional",
+      description: "Sistema inteligente de análisis geométrico facial y recomendación de gafas personalizadas.",
+      technologies: ["React", "Python", "Flask", "MediaPipe", "OpenCV"],
+      highlights: [
+        "Captura facial en tiempo real",
+        "Análisis geométrico preciso",
+        "Recomendación personalizada",
+        "Procesamiento local y privado",
+      ],
+      logo: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/optiscan%20logo-ljdcHpFsxq4a0rZ3pLEw1o9k1MWMrs.jpeg",
+      logoAlt: "OptiScan - Logo con icono de escaneo ocular en degradado azul y púrpura",
+      link: null,
     },
   ]
 
