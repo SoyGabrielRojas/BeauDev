@@ -154,33 +154,39 @@ export default function Home() {
   ]
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setSubmitStatus("idle")
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
 
     try {
-      const response = await fetch("/api/send-email", {
+      // Usa tu Form ID real de Formspree aquí
+      const response = await fetch("https://formspree.io/f/xvglgyjy", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
-      })
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _subject: `Nuevo mensaje de contacto de ${formData.name}` // Asunto personalizado del email
+        }),
+      });
 
       if (response.ok) {
-        setSubmitStatus("success")
-        setFormData({ name: "", email: "", message: "" })
-        setCharCount(0)
+        setSubmitStatus("success");
+        setFormData({ name: "", email: "", message: "" });
+        setCharCount(0);
       } else {
-        setSubmitStatus("error")
+        setSubmitStatus("error");
       }
     } catch (error) {
-      console.error("[v0] Error submitting form:", error)
-      setSubmitStatus("error")
+      console.error("Error enviando el formulario:", error);
+      setSubmitStatus("error");
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const text = e.target.value
